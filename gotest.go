@@ -11,7 +11,20 @@ import (
   "os"
 )
 
-func checkFile(path string, fileName string) {
+type File struct {
+  Name string
+  Path string
+  HashValue string
+}
+
+func (file File) Happy() string {
+  return "Happy"
+}
+
+func checkFile(path string, fileName string) (fileTest File) {
+  fileTest.Name = fileName
+  fileTest.Path = path
+
   var buffer bytes.Buffer
   buffer.WriteString(path)
   buffer.WriteString("/")
@@ -33,10 +46,15 @@ func checkFile(path string, fileName string) {
     }
     h.Write(buf[:n])
   }
-  fmt.Println(hex.EncodeToString(h.Sum(nil)))
+  fileTest.HashValue = hex.EncodeToString(h.Sum(nil))
+  fmt.Println(fileTest.HashValue)
+  fmt.Println(fileTest)
+  fmt.Println(fileTest.Happy())
+  return fileTest
 }
 
 func main() {
+  fileList := make([]File,0) 
   dirList, err := ioutil.ReadDir("./save")
   if err != nil {
   }
@@ -44,7 +62,8 @@ func main() {
   for _, value := range dirList {
     if value.IsDir() {
     } else {
-      checkFile("./save",value.Name())
+      fileList = append(fileList,checkFile("./save",value.Name()))
     }
   }
+ fmt.Println(fileList)
 }
