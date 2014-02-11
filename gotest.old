@@ -1,0 +1,57 @@
+package main
+
+import (
+  "fmt"
+  "io/ioutil"
+  "crypto/sha256"
+  "encoding/hex"
+  "bytes"
+  "bufio"
+  /*"os"*/
+)
+
+func checkFile(path string, fileName string) {
+  var buffer bytes.Buffer
+  buffer.WriteString(path)
+  buffer.WriteString("/")
+  buffer.WriteString(fileName)
+
+  h := sha256.New()
+  content, err := ioutil.ReadFile(buffer.String())
+  if err != nil {
+
+  }
+  h.Write(content)
+  fmt.Println(hex.EncodeToString(h.Sum(nil)))
+
+  var buffer bytes.Buffer
+  buffer.WriteString(path)
+  buffer.WriteString("/")
+  buffer.WriteString(fileName)
+  h := sha256.New()
+  if file, err = os.Open(buffer.String(); err != nil {
+    return
+  }
+  reader := bufio.NewReader(file)
+  buffer := bytes.NewBuffer(make([]byte, 1024))
+  for {
+    if part, prefix, err = reader.ReaderLine(); err != nil {
+      break
+    } else {
+      h.Write(part)
+    }
+  }
+}
+
+func main() {
+  dirList, err := ioutil.ReadDir("./save")
+  if err != nil {
+  }
+  
+  for _, value := range dirList {
+    if value.IsDir() {
+    } else {
+      checkFile("./save",value.Name())
+    }
+  }
+}

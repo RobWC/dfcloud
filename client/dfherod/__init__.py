@@ -25,7 +25,7 @@ class FileSet(object):
             testfile.fileChecksum()
             totalSize = totalSize + testfile.checksum['size']
             totalItems = totalItems + 1;
-            
+
       elif os.path.isfile(pathToItem):
         testfile = File(pathToItem)
         self.files.append(testfile)
@@ -54,5 +54,5 @@ class DFHerod(object):
   def fileChecksum(self,file):
     print hashlib.sha256(file.readFile()).hexdigest()
 
-fileTestSet = FileSet('/home/rcameron/code/dfcloud/client/dfherod/save')
+fileTestSet = FileSet('/home/rcameron/code/dfcloud/save')
 fileTestSet.fileScan()
